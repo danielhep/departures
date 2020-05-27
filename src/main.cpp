@@ -12,16 +12,16 @@
 //#define PxMATRIX_DEFAULT_SHOWTIME 30
 
 // Defines the speed of the SPI bus (reducing this may help if you experience noisy images)
-//#define PxMATRIX_SPI_FREQUENCY 20000000
+#define PxMATRIX_SPI_FREQUENCY 17000000
 
 // Creates a second buffer for backround drawing (doubles the required RAM)
-//#define PxMATRIX_double_buffer true
+// #define PxMATRIX_double_buffer true
 
 #include <Wire.h>
 #include <PxMatrix.h>
 #include <U8g2_for_Adafruit_GFX.h>
 
-U8G2_FOR_ADAFRUIT_GFX u8g2_for_adafruit_gfx;
+U8G2_FOR_ADAFRUIT_GFX u8g2;
 
 // Pins for LED MATRIX
 #ifdef ESP32
@@ -43,7 +43,7 @@ portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
 // This defines the 'on' time of the display is us. The larger this number,
 // the brighter the display. If too large the ESP will crash
-uint8_t display_draw_time=60; //30-70 is usually fine
+uint8_t display_draw_time=70; //30-70 is usually fine
 
 PxMATRIX display(64,32,P_LAT, P_OE,P_A,P_B,P_C,P_D);
 
@@ -56,6 +56,8 @@ uint16_t myYELLOW = display.color565(255, 255, 0);
 uint16_t myCYAN = display.color565(0, 255, 255);
 uint16_t myMAGENTA = display.color565(255, 0, 255);
 uint16_t myBLACK = display.color565(0, 0, 0);
+uint16_t myORANGE = display.color565(255, 64, 0);
+uint16_t myDIMORANGE = display.color565(0, 16, 0);
 
 uint16_t myCOLORS[8]={myRED,myGREEN,myBLUE,myWHITE,myYELLOW,myCYAN,myMAGENTA,myBLACK};
 
@@ -111,22 +113,33 @@ void setup() {
  Serial.begin(9600);
   // Define your display layout here, e.g. 1/8 step, and optional SPI pins begin(row_pattern, CLK, MOSI, MISO, SS)
   display.begin(16);
-  u8g2_for_adafruit_gfx.begin(display);
+  display.setBrightness(255);
+  u8g2.begin(display);
   display.setFastUpdate(true);
 
   display.clearDisplay();
-  u8g2_for_adafruit_gfx.setFontMode(1);                 // use u8g2 transparent mode (this is default)
-  u8g2_for_adafruit_gfx.setFontDirection(0);            // left to right (this is default)
-  u8g2_for_adafruit_gfx.setForegroundColor(myRED);   // apply Adafruit GFX color
-  u8g2_for_adafruit_gfx.setFont(u8g2_font_baby_tr);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-  u8g2_for_adafruit_gfx.setCursor(0,5);                // start writing at this position
-  u8g2_for_adafruit_gfx.print(F("Downtown"));
-  u8g2_for_adafruit_gfx.setForegroundColor(myYELLOW);   // apply Adafruit GFX color
-  u8g2_for_adafruit_gfx.setCursor(0,11);                // start writing at this position
-  u8g2_for_adafruit_gfx.print(F("190 in 8, 20 min"));
-  u8g2_for_adafruit_gfx.setCursor(0,17);                // start writing at this position
-  u8g2_for_adafruit_gfx.print(F("14 in 20, 50 min"));
-  display_update_enable(true);
+  u8g2.setFontMode(1);                 // use u8g2 transparent mode (this is default)
+  u8g2.setFontDirection(0);            // left to right (this is default)
+  u8g2.setForegroundColor(myRED);   // apply Adafruit GFX color
+  u8g2.setFont(u8g2_font_baby_tf);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+  u8g2.setCursor(0,5);                // start writing at this position
+  u8g2.print(F("Downtown"));
+  u8g2.setForegroundColor(myWHITE);   // apply Adafruit GFX color
+  u8g2.setCursor(0,11);                // start writing at this position
+  uint8_t tl_x = u8g2.getUTF8Width("190 in ")-1;
+  uint8_t tl_y = 11-u8g2.getFontAscent()-1;
+//   u8g2.print(F("190-8 20 lol"));
+  u8g2.print(F("REFER"));
+  u8g2.setCursor(0,17);                // start writing at this position
+//   u8g2.print(F("14-20 50 harry"));
+  u8g2.print(F("TO"));
+  u8g2.setCursor(0,23);                // start writing at this position
+//   u8g2.print(F("196-30 60 dumb"));
+  u8g2.print(F("SCHEDULE"));
+//   u8g2.setCursor(0,29);                // start writing at this position
+//   u8g2.print(F("105-27 "));
+//   display.drawRect(tl_x, tl_y, u8g2.getUTF8Width("8")+2, 7, myDIMORANGE);
+display_update_enable(true);
 
   delay(3000);
 
