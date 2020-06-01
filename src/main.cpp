@@ -21,9 +21,20 @@
 #define DISP_HEIGHT 32
 
 #include <Wire.h>
+#if defined(ESP8266)
+#include <ESP8266WiFi.h>          
+#else
+#endif
+
+//needed for library
+#include <DNSServer.h>
+#if defined(ESP8266)
+#include <ESP8266WebServer.h>
+#else
+#endif
+#include <WiFiManager.h>         
 #include "Transit.h"
 #include "colors.h"
-
 
 PxMATRIX display(64,32,P_LAT, P_OE,P_A,P_B,P_C,P_D);
 U8G2_FOR_ADAFRUIT_GFX u8g2;
@@ -77,10 +88,21 @@ void display_update_enable(bool is_enable)
   }
 }
 
+static void configModeCallback (WiFiManager *myWiFiManager) {
+  Serial.println("Entered config mode");
+  Serial.println(WiFi.softAPIP());
 
+  Serial.println(myWiFiManager->getConfigPortalSSID());
+}
 
 void setup() {
- Serial.begin(9600);
+  Serial.begin(9600);
+
+  WiFiManager wifiManager;
+
+  wifiManager.setAPCallback(configModeCallback);
+  wifiManager.autoConnect("transit setup");
+
   // Define your display layout here, e.g. 1/8 step, and optional SPI pins begin(row_pattern, CLK, MOSI, MISO, SS)
   display.begin(16);
   display.setBrightness(255);
@@ -90,30 +112,26 @@ void setup() {
   display.clearDisplay();
   u8g2.setFontMode(1);                 // use u8g2 transparent mode (this is default)
   u8g2.setFontDirection(0);            // left to right (this is default)
-  u8g2.setForegroundColor(myRED);   // apply Adafruit GFX color
+  u8g2.setForegroundColor(myORANGE);   // apply Adafruit GFX color
   u8g2.setFont(u8g2_font_baby_tf);  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
   u8g2.setCursor(0,5);                // start writing at this position
-  u8g2.print(F("Downtown"));
+  u8g2.print(F("Inbound"));
   display_update_enable(true);
 
   u8g2.setForegroundColor(myWHITE);   // apply Adafruit GFX color
   uint8_t times1 [] = {13, 34, 255};
   status_t status1 [] = {ON_TIME, ON_TIME};
-  transitScreen.displayRoute(F("26X"), times1, status1, 11);
+  transitScreen.displayRoute(F("26x"), times1, status1, 11);
   uint8_t times2 [] = {21, 29, 46};
   status_t status2 [] = {LATE, ON_TIME, ON_TIME};
-  transitScreen.displayRoute(F("62"), times2, status2, 17);
+  transitScreen.displayRoute(F("62"), times2, status2, 18);
   uint8_t times3 [] = {2, 12, 15};
   status_t status3 [] = {EARLY, EARLY, ON_TIME};
-  transitScreen.displayRoute(F("E Line"), times3, status3, 23);
-  uint8_t times4 [] = {5, 11, 23};
+  transitScreen.displayRoute(F("E Line"), times3, status3, 25);
+  uint8_t times4 [] = {99, 11, 100};
   status_t status4 [] = {LATE, EARLY, ON_TIME};
-  transitScreen.displayRoute(F("44"), times4, status4, 29);
+  transitScreen.displayRoute(F("44"), times4, status4, 32);
 }
-union single_double{
-  uint8_t two[2];
-  uint16_t one;
-} this_single_double;
 
 void loop() {
 
