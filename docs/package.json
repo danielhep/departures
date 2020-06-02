@@ -2,5 +2,8 @@
   "devDependencies": {
     "vuepress": "^1.5.0",
     "watchpack": "1.6.1"
+  },
+  "scripts": {
+    "docs:build": "vuepress build docs"
   }
 }
