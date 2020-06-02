@@ -11,7 +11,7 @@ features:
 - title: Advanced Configuration
   details: Configure any combination of stops, routes, and directions. Configure automatic dimming when the lights are off. 
 - title: Get Alerts
-  details: Be notified instantly of problems or delays that will affect your trip. Exlaimation points next to a trip notify you of potential disruptions.
+  details: Be notified instantly of problems or delays that will affect your trip. Exlamation points next to a trip notify you of potential disruptions.
 footer: MIT Licensed | Copyright © 2020 Daniel Heppner
 ---
 # What is it?
@@ -35,4 +35,4 @@ Currently, many agencies provide their own OneBusAway servers: (not an exhaustiv
 - San Diego MTS, CA
 - DC Metro, DC
 
-If your agency isn't on this list, the OneBusAway project provides instructions on (how you can set up)[https://github.com/OneBusAway/onebusaway/wiki/Running-Onebusaway] your own server that can be used with the Headways Departures display. 
+If your agency isn't on this list, the OneBusAway project provides instructions on [how you can set up](https://github.com/OneBusAway/onebusaway/wiki/Running-Onebusaway) your own server that can be used with the Headways Departures display. 
