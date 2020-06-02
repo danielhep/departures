@@ -6,3 +6,8 @@ Using an LCD in some cases may be cheaper, since it is easy to pick up a monitor
 
 # Why not just check the status on your phone? 
 Most people do this, but it requires opening an app and refreshing the status of your buses. To truly integrate mass transit into your life, it becomes necessary to have that information always accessible. Also, it's cool.
+
+# Challenges
+The biggest challenge in this project has been connecting the data sources. Ultimately, I didn't want to reinvent the wheel: Many agencies already provide the data I need in a usable format, but that format differs between agencies. And some agencies don't provide an API at all, they only provide the GTFS-RT feed. Therefore, I settled on OneBusAway's API, since it is open source and can be deployed on existing data even if the agency doesn't host the server themselves. 
+
+Eventually, I plan to integrate a real time server into Headways, which will mean OBA will not longer be needed. 
