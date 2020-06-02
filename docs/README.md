@@ -11,13 +11,13 @@ features:
 - title: Advanced Configuration
   details: Configure any combination of stops, routes, and directions. Configure automatic dimming when the lights are off. 
 - title: Get Alerts
-  details: Be notified instantly of problems or delays that will affect your trip. Exlamation points next to a trip notify you of potential disruptions.
+  details: Be notified instantly of problems or delays that will affect your trip. Exclamation points next to a trip notify you of potential disruptions.
 footer: MIT Licensed | Copyright © 2020 Daniel Heppner
 ---
 # What is it?
 This is an open source hardware and software project to create a transit departures board similar to those found at train stations and major bus stops. It uses live or scheduled data from the OneBusAway API to show real time predictions of transit vehicles, including whether they are late or early. It can be configured through a web app that allows you to select what routes and stops to display. 
 
-The project uses entirely open souce hardware and software so you can build your own. There are many different ways to obtain one:
+The project uses entirely open source hardware and software so you can build your own. There are many different ways to obtain one:
 - Build your own using the parts list.
 - Order a kit to build your own from us.
 - Order a prebuilt module.
