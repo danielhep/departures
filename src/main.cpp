@@ -106,10 +106,7 @@ void setup() {
   display.clearDisplay();
   u8g2.setFontMode(1);                 // use u8g2 transparent mode (this is default)
   u8g2.setFontDirection(0);            // left to right (this is default)
-  u8g2.setForegroundColor(myORANGE);   // apply Adafruit GFX color
   u8g2.setFont(u8g2_font_baby_tf);     // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-  u8g2.setCursor(0,5);                 // start writing at this position
-  u8g2.print(F("Inbound"));
   display_update_enable(true);
 
 
@@ -127,6 +124,11 @@ void setup() {
 }
 
 void loop() {
-  delay(15000);
+  display.clearDisplay();
+  u8g2.setCursor(0,5);                 // start writing at this position
+  u8g2.setForegroundColor(myORANGE);   // apply Adafruit GFX color
+  u8g2.print(F("Inbound"));
+  u8g2.setForegroundColor(myWHITE);   // apply Adafruit GFX color
   transitScreen.loadAndDisplayRoute("E Line", "asd", 11);
+  delay(15000);
 }
