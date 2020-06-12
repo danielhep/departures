@@ -127,5 +127,6 @@ void setup() {
 }
 
 void loop() {
-
+  delay(15000);
+  transitScreen.loadAndDisplayRoute("E Line", "asd", 11);
 }
