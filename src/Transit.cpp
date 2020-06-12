@@ -1,7 +1,14 @@
 #include "Transit.h"
 #include "colors.h"
 
-void Transit::displayRoute(String route, uint8_t *times, status_t *status, uint8_t row) {
+void Transit::loadAndDisplayRoute(String route, String stop, uint8_t row) {
+  uint16_t times[TIMES_TO_SHOW];
+  status_t status[TIMES_TO_SHOW];
+  loader.loadData(times, status, TIMES_TO_SHOW);
+  displayRoute(route, times, status, row);
+}
+
+void Transit::displayRoute(String route, uint16_t *times, status_t *status, uint8_t row) {
   char buffer[20];
   uint8_t timewidth[TIMES_TO_SHOW];
   uint8_t spacewidth = u8g2.getUTF8Width(" ");
@@ -43,6 +50,7 @@ void Transit::displayRoute(String route, uint8_t *times, status_t *status, uint8
         color = colEarly;
         break;
       default:
+        color = colOnTime;
         break;
       }
       display.drawRect(tl_x, tl_y, timewidth[i] + 1, u8g2.getFontAscent() + 2, color);
