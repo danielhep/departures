@@ -16,7 +16,7 @@ typedef enum
 class DataLoader {
     public: 
         DataLoader() {};
-        void loadData(uint16_t *times, status_t *status, uint8_t qty);
+        void loadData(String stop, String routeId, uint16_t *times, status_t *status, uint8_t qty);
 
     private:
         HTTPClient http;

@@ -1,7 +1,8 @@
 #include "Transit.h"
 #include "DataLoader.h"
-void DataLoader::loadData(uint16_t *times, status_t *status, uint8_t qty) {
-    http.begin(F("http://headways-api.herokuapp.com/rt?stop=1_17230"));
+void DataLoader::loadData(String stop, String routeId, uint16_t *times, status_t *status, uint8_t qty) {
+    String str = String("http://headways-api.herokuapp.com/rt?stop=" + stop + "&route=" + routeId);
+    http.begin(str);
     uint8_t code = http.GET();
     if (code != 200)
     {
@@ -18,7 +19,6 @@ void DataLoader::loadData(uint16_t *times, status_t *status, uint8_t qty) {
         } else {
             JsonArray arr = doc.as<JsonArray>();
             for (int i = 0; i < arr.size(); i++) {
-                Serial.println(String((int16_t)doc[i]["predictedDepartureTime"]));
                 if(i < qty) {
                     times[i] = (int16_t)doc[i]["predictedDepartureTime"];
                     int8_t deviation = doc[i]["deviation"];

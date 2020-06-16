@@ -17,7 +17,7 @@
 class Transit {
     public:
         Transit(PxMATRIX &display, U8G2_FOR_ADAFRUIT_GFX &u8g2) : display(display), u8g2(u8g2){};
-        void loadAndDisplayRoute(String route, String stop, uint8_t row);
+        void loadAndDisplayRoute(String route, String routeId, String stop, uint8_t row);
         void displayRoute(String route, uint16_t *times, status_t *status, uint8_t row);
         PxMATRIX &display;
         U8G2_FOR_ADAFRUIT_GFX &u8g2;
