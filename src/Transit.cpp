@@ -11,29 +11,27 @@ void Transit::loadAndDisplayRoute(String route, String routeId, String stop, uin
 
 void Transit::displayRoute(String route, uint16_t *times, status_t *status, uint8_t row) {
   char buffer[20];
-  uint8_t timewidth[TIMES_TO_SHOW];//pee pee poo poo
+  uint8_t timewidth[TIMES_TO_SHOW];
   uint8_t spacewidth = u8g2.getUTF8Width(" ");
 
   uint8_t tl_y = row - u8g2.getFontAscent();
-
-  display.fillRect(0, tl_y - 1, 64, u8g2.getFontAscent() + 2, 0);
-
-  u8g2.setCursor(0, row); // start writing at this position
-  u8g2.print(route);
 
   String str = "";
   uint8_t prevWidth = 0;
   for (int i = 0; i < TIMES_TO_SHOW; i++)
   {
-    if(times[i] != 255) {
       str += times[i];
       str += " ";
       str.toCharArray(buffer, 20);
       uint8_t newWidth = u8g2.getUTF8Width(buffer);
       timewidth[i] = newWidth - prevWidth - spacewidth;
       prevWidth = newWidth;
-    }
   }
+  // clear line
+  display.fillRect(0, tl_y - 1, 64, u8g2.getFontAscent() + 2, 0);
+  u8g2.setCursor(0, row); // start writing at this position
+  u8g2.print(route);
+  // right align the times
   u8g2.setCursor(64 - prevWidth, row);
   u8g2.print(str);
   // print boxes
