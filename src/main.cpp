@@ -43,7 +43,6 @@ portMUX_TYPE timerMux = portMUX_INITIALIZER_UNLOCKED;
 
 #endif
 
-
 // This defines the 'on' time of the display is us. The larger this number,
 // the brighter the display. If too large the ESP will crash
 uint8_t display_draw_time=70; //30-70 is usually fine
@@ -99,7 +98,7 @@ void setup() {
 
   // Define your display layout here, e.g. 1/8 step, and optional SPI pins begin(row_pattern, CLK, MOSI, MISO, SS)
   display.begin(16);
-  display.setBrightness(255);
+  display.setBrightness(128);
   u8g2.begin(display);
   display.setFastUpdate(true);
 

@@ -22,7 +22,9 @@ void DataLoader::loadData(String stop, String routeId, uint16_t *times, status_t
                 if(i < qty) {
                     times[i] = (int16_t)doc[i]["predictedDepartureTime"];
                     int8_t deviation = doc[i]["deviation"];
-                    if (deviation < 0)
+                    if (!doc[i]["predicted"])
+                        status[i] = NO_LIVE;
+                    else if (deviation < 0)
                         status[i] = EARLY;
                     else if(deviation > 0 & deviation < 3)
                         status[i] = ON_TIME;

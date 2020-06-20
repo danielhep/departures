@@ -42,6 +42,9 @@ void Transit::displayRoute(String route, uint16_t *times, status_t *status, uint
       uint16_t color;
       switch (status[i])
       {
+      case NO_LIVE:
+        color = 0;
+        break;
       case ON_TIME:
         color = colOnTime;
         break;
