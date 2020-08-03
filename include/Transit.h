@@ -10,7 +10,7 @@
 #define P_C 18
 #define P_D 5
 #define P_E 15
-#define P_OE 0
+#define P_OE 16
 
 #define TIMES_TO_SHOW 3
 

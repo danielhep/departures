@@ -4,6 +4,7 @@
 void Transit::loadAndDisplayRoute(String route, String routeId, String stop, uint8_t row) {
   uint16_t times[TIMES_TO_SHOW];
   status_t status[TIMES_TO_SHOW];
+  memset(status, NO_TIME, TIMES_TO_SHOW);
   loader.loadData(stop, routeId, times, status, TIMES_TO_SHOW);
   displayRoute(route, times, status, row);
 }
@@ -20,12 +21,14 @@ void Transit::displayRoute(String route, uint16_t *times, status_t *status, uint
   uint8_t prevWidth = 0;
   for (int i = 0; i < TIMES_TO_SHOW; i++)
   {
+    if(status[i] != NO_TIME) {
       str += times[i];
       str += " ";
       str.toCharArray(buffer, 20);
       uint8_t newWidth = u8g2.getUTF8Width(buffer);
       timewidth[i] = newWidth - prevWidth - spacewidth;
       prevWidth = newWidth;
+    }
   }
   // clear line
   display.fillRect(0, tl_y - 1, 64, u8g2.getFontAscent() + 2, 0);
@@ -36,7 +39,7 @@ void Transit::displayRoute(String route, uint16_t *times, status_t *status, uint
   u8g2.print(str);
   // print boxes
   for (int i = 0; i < TIMES_TO_SHOW; i++) {
-    if(times[i] != 255) {
+    if(times[i] != 255 && status[i] != NO_TIME) {
       uint8_t tl_x = 64 - prevWidth -1;
       prevWidth -= timewidth[i] + spacewidth;
       uint16_t color;

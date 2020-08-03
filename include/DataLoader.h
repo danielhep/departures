@@ -10,7 +10,7 @@ typedef enum
     EARLY,
     LATE,
     NO_LIVE,
-    NO_BUS
+    NO_TIME
 } status_t;
  
 class DataLoader {

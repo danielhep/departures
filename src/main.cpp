@@ -110,8 +110,6 @@ void setup() {
 
 
   u8g2.setForegroundColor(myWHITE);   // apply Adafruit GFX color
-  transitScreen.loadAndDisplayRoute("E Line", "1_102615", "1_7630", 11);
-  transitScreen.loadAndDisplayRoute("62", "1_100252", "1_17230", 18);
   // uint8_t times2 [] = {21, 29, 46};
   // status_t status2 [] = {LATE, ON_TIME, ON_TIME};
   // transitScreen.displayRoute(F("62"), times2, status2, 18);
@@ -128,9 +126,8 @@ void loop() {
   u8g2.setForegroundColor(myORANGE);   // apply Adafruit GFX color
   u8g2.print(F("Inbound"));
   u8g2.setForegroundColor(myWHITE);   // apply Adafruit GFX color
-  transitScreen.loadAndDisplayRoute("E Line", "1_102615", "1_7630", 11);
-  transitScreen.loadAndDisplayRoute("62", "1_100252", "1_7380", 18);
-  transitScreen.loadAndDisplayRoute("26", "1_100151", "1_7380", 25);
-  transitScreen.loadAndDisplayRoute("5", "1_100229", "1_6030", 32);
+  transitScreen.loadAndDisplayRoute("62", "1_100252", "1_17250", 18);
+  transitScreen.loadAndDisplayRoute("E Line", "1_102615", "1_7210", 11);
+  transitScreen.loadAndDisplayRoute("44", "1_100224", "1_17410", 25);
   delay(15000);
 }
